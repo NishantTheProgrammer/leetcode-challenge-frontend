@@ -50,19 +50,19 @@ const Dashboard = () => {
   ]
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600 mt-1">Plan, prioritize, and accomplish your tasks with ease.</p>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-500 mt-1">Plan, prioritize, and accomplish your tasks with ease.</p>
         </div>
         <div className="flex space-x-3">
-          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2">
+          <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center space-x-2 shadow-sm">
             <span>+</span>
             <span>Add Project</span>
           </button>
-          <button className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium">
+          <button className="bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg font-medium shadow-sm">
             Import Data
           </button>
         </div>
@@ -71,17 +71,19 @@ const Dashboard = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
-          <div key={index} className={`${stat.color} ${stat.textColor || 'text-white'} p-6 rounded-xl relative overflow-hidden`}>
+          <div key={index} className={`${stat.color} ${stat.textColor || 'text-white'} p-6 rounded-2xl relative overflow-hidden shadow-sm`}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-medium opacity-90">{stat.title}</h3>
-              <button className="opacity-70 hover:opacity-100">
-                <span className="text-lg">↗</span>
+              <h3 className="font-medium text-sm opacity-90">{stat.title}</h3>
+              <button className="opacity-70 hover:opacity-100 w-8 h-8 rounded-full bg-white bg-opacity-10 flex items-center justify-center">
+                <span className="text-sm">↗</span>
               </button>
             </div>
-            <div className="text-3xl font-bold mb-2">{stat.value}</div>
-            <div className="flex items-center text-sm opacity-75">
-              <span className="mr-1">📈</span>
-              <span>{stat.change}</span>
+            <div className="text-4xl font-bold mb-3">{stat.value}</div>
+            <div className="flex items-center text-sm opacity-80">
+              <div className="w-4 h-4 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-2">
+                <span className="text-xs">📈</span>
+              </div>
+              <span className="text-xs">{stat.change}</span>
             </div>
           </div>
         ))}
@@ -90,8 +92,8 @@ const Dashboard = () => {
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Project Analytics Chart */}
-        <div className="lg:col-span-1 bg-white rounded-xl p-6 shadow-sm">
-          <h3 className="text-lg font-semibold mb-6">Project Analytics</h3>
+        <div className="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h3 className="text-lg font-semibold mb-6 text-gray-900">Project Analytics</h3>
           <div className="flex items-end justify-between h-40 space-x-2">
             {chartData.map((item, index) => (
               <div key={index} className="flex flex-col items-center space-y-2 flex-1">
@@ -106,9 +108,9 @@ const Dashboard = () => {
         </div>
 
         {/* Reminders */}
-        <div className="bg-white rounded-xl p-6 shadow-sm">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold">Reminders</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Reminders</h3>
           </div>
           <div className="space-y-4">
             <div className="border border-gray-200 rounded-lg p-4">
@@ -123,9 +125,9 @@ const Dashboard = () => {
         </div>
 
         {/* Project Progress */}
-        <div className="bg-white rounded-xl p-6 shadow-sm">
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold">Project Progress</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Project Progress</h3>
           </div>
           <div className="text-center mb-6">
             <div className="relative inline-flex items-center justify-center">
@@ -177,9 +179,9 @@ const Dashboard = () => {
       {/* Bottom Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Team Collaboration */}
-        <div className="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm">
+        <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold">Team Collaboration</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Team Collaboration</h3>
             <button className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center space-x-1">
               <span>+</span>
               <span>Add Member</span>
@@ -225,9 +227,9 @@ const Dashboard = () => {
       </div>
 
       {/* Project Tasks */}
-      <div className="bg-white rounded-xl p-6 shadow-sm">
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold">Project</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Project</h3>
           <button className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center space-x-1">
             <span>+</span>
             <span>New</span>
