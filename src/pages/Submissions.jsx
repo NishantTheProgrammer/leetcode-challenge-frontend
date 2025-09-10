@@ -87,19 +87,19 @@ const Submissions = () => {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Submissions</h1>
-          <p className="text-gray-600 mt-1">Review and manage project submissions.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Submissions</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Review and manage project submissions.</p>
         </div>
         <div className="flex space-x-3">
           <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2">
             <span>+</span>
             <span>New Submission</span>
           </button>
-          <button className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium">
+          <button className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium">
             Export
           </button>
         </div>
@@ -107,37 +107,37 @@ const Submissions = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Total</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total</h3>
             <span className="text-2xl">📝</span>
           </div>
-          <div className="text-2xl font-bold text-gray-900">{submissions.length}</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-white">{submissions.length}</div>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Approved</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Approved</h3>
             <span className="text-2xl">✅</span>
           </div>
           <div className="text-2xl font-bold text-green-600">{submissions.filter(s => s.status === 'Approved').length}</div>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Under Review</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Under Review</h3>
             <span className="text-2xl">⏳</span>
           </div>
           <div className="text-2xl font-bold text-yellow-600">{submissions.filter(s => s.status === 'Under Review').length}</div>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">In Progress</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</h3>
             <span className="text-2xl">🔄</span>
           </div>
           <div className="text-2xl font-bold text-purple-600">{submissions.filter(s => s.status === 'In Progress').length}</div>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Completed</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</h3>
             <span className="text-2xl">🎉</span>
           </div>
           <div className="text-2xl font-bold text-blue-600">{submissions.filter(s => s.status === 'Completed').length}</div>
@@ -145,19 +145,19 @@ const Submissions = () => {
       </div>
 
       {/* Filters and Search */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <input
             type="text"
             placeholder="Search submissions..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
           />
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
           >
             <option value="All">All Status</option>
             <option value="Approved">Approved</option>
@@ -169,7 +169,7 @@ const Submissions = () => {
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
           >
             <option value="All">All Types</option>
             <option value="Feature">Feature</option>
@@ -182,18 +182,18 @@ const Submissions = () => {
       {/* Submissions List */}
       <div className="space-y-4">
         {filteredSubmissions.map((submission) => (
-          <div key={submission.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+          <div key={submission.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center space-x-3 mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900">{submission.title}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{submission.title}</h3>
                   <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(submission.status)}`}>
                     {submission.status}
                   </span>
-                  <span className="text-sm text-gray-500">#{submission.id}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">#{submission.id}</span>
                 </div>
-                <p className="text-gray-600 mb-3">{submission.description}</p>
-                <div className="flex items-center space-x-6 text-sm text-gray-500">
+                <p className="text-gray-600 dark:text-gray-400 mb-3">{submission.description}</p>
+                <div className="flex items-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
                   <div className="flex items-center space-x-1">
                     <span>👤</span>
                     <span>{submission.submittedBy}</span>
@@ -216,7 +216,7 @@ const Submissions = () => {
                 <button className="px-3 py-1 text-sm font-medium text-green-600 hover:text-green-700 border border-green-300 rounded-lg hover:bg-green-50">
                   Review
                 </button>
-                <button className="px-3 py-1 text-sm font-medium text-gray-600 hover:text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
+                <button className="px-3 py-1 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
                   Edit
                 </button>
               </div>

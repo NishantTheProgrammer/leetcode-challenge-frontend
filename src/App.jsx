@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from './contexts/ThemeContext'
 import Sidebar from './components/Sidebar'
 import MainLayout from './components/MainLayout'
 import Dashboard from './pages/Dashboard'
@@ -9,21 +10,23 @@ import './App.css'
 
 function App() {
   return (
-    <Router>
-      <div className="flex h-screen bg-gray-50">
-        <Sidebar />
-        <div className="flex flex-col flex-1">
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="users" element={<Users />} />
-              <Route path="submissions" element={<Submissions />} />
-              <Route path="join" element={<WantToJoin />} />
-            </Route>
-          </Routes>
+    <ThemeProvider>
+      <Router>
+        <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+          <Sidebar />
+          <div className="flex flex-col flex-1">
+            <Routes>
+              <Route path="/" element={<MainLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="users" element={<Users />} />
+                <Route path="submissions" element={<Submissions />} />
+                <Route path="join" element={<WantToJoin />} />
+              </Route>
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </ThemeProvider>
   )
 }
 

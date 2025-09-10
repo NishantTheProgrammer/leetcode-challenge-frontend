@@ -91,19 +91,19 @@ const WantToJoin = () => {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Want to Join</h1>
-          <p className="text-gray-600 mt-1">Review job applications and manage candidates.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Want to Join</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Review job applications and manage candidates.</p>
         </div>
         <div className="flex space-x-3">
           <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2">
             <span>+</span>
             <span>Post Job</span>
           </button>
-          <button className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium">
+          <button className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium">
             Export
           </button>
         </div>
@@ -111,30 +111,30 @@ const WantToJoin = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Total Applications</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Applications</h3>
             <span className="text-2xl">📋</span>
           </div>
-          <div className="text-2xl font-bold text-gray-900">{applications.length}</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-white">{applications.length}</div>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Under Review</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Under Review</h3>
             <span className="text-2xl">⏳</span>
           </div>
           <div className="text-2xl font-bold text-yellow-600">{applications.filter(a => a.status === 'Under Review').length}</div>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Approved</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Approved</h3>
             <span className="text-2xl">✅</span>
           </div>
           <div className="text-2xl font-bold text-green-600">{applications.filter(a => a.status === 'Approved').length}</div>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600">Interviews</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Interviews</h3>
             <span className="text-2xl">🎯</span>
           </div>
           <div className="text-2xl font-bold text-blue-600">{applications.filter(a => a.status === 'Interview Scheduled').length}</div>
@@ -142,7 +142,7 @@ const WantToJoin = () => {
       </div>
 
       {/* Filters and Search */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
             <input
@@ -150,13 +150,13 @@ const WantToJoin = () => {
               placeholder="Search applications..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             />
           </div>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           >
             <option value="All">All Status</option>
             <option value="Under Review">Under Review</option>
@@ -170,7 +170,7 @@ const WantToJoin = () => {
       {/* Applications List */}
       <div className="space-y-4">
         {filteredApplications.map((application) => (
-          <div key={application.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+          <div key={application.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center space-x-3 mb-3">
@@ -178,8 +178,8 @@ const WantToJoin = () => {
                     {application.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{application.name}</h3>
-                    <p className="text-gray-600">{application.email}</p>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{application.name}</h3>
+                    <p className="text-gray-600 dark:text-gray-400">{application.email}</p>
                   </div>
                   <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusColor(application.status)}`}>
                     {application.status}
@@ -188,19 +188,19 @@ const WantToJoin = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <h4 className="text-sm font-medium text-gray-700 mb-1">Position</h4>
-                    <p className="text-gray-900">{application.position}</p>
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Position</h4>
+                    <p className="text-gray-900 dark:text-white">{application.position}</p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-gray-700 mb-1">Experience</h4>
-                    <p className="text-gray-900">{application.experience}</p>
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Experience</h4>
+                    <p className="text-gray-900 dark:text-white">{application.experience}</p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-gray-700 mb-1">Applied Date</h4>
-                    <p className="text-gray-900">{new Date(application.appliedDate).toLocaleDateString()}</p>
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Applied Date</h4>
+                    <p className="text-gray-900 dark:text-white">{new Date(application.appliedDate).toLocaleDateString()}</p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-gray-700 mb-1">Portfolio</h4>
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Portfolio</h4>
                     <a href={application.portfolio} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700">
                       View Portfolio
                     </a>
@@ -208,10 +208,10 @@ const WantToJoin = () => {
                 </div>
 
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Skills</h4>
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Skills</h4>
                   <div className="flex flex-wrap gap-2">
                     {application.skills.map((skill, index) => (
-                      <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+                      <span key={index} className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full">
                         {skill}
                       </span>
                     ))}
@@ -219,8 +219,8 @@ const WantToJoin = () => {
                 </div>
 
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium text-gray-700 mb-1">Message</h4>
-                  <p className="text-gray-600 text-sm">{application.message}</p>
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</h4>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">{application.message}</p>
                 </div>
               </div>
 
@@ -243,7 +243,7 @@ const WantToJoin = () => {
                 >
                   Reject
                 </button>
-                <button className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300">
+                <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600">
                   Contact
                 </button>
               </div>
