@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
 import Overall from '../components/charts/Overall'
+import DifficultyDistribution from '../components/charts/DifficultyDistribution'
+import TopicProgress from '../components/charts/TopicProgress'
+import WeeklyActivity from '../components/charts/WeeklyActivity'
+import LanguageUsage from '../components/charts/LanguageUsage'
+import SolveTime from '../components/charts/SolveTime'
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -101,25 +106,24 @@ const Dashboard = () => {
         })}
       </div>
 
-      <Overall />
+      {/* Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Overall />
+        <DifficultyDistribution />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <TopicProgress />
+        <LanguageUsage />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <WeeklyActivity />
+        <SolveTime />
+      </div>
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Project Analytics Chart */}
-        <div className="lg:col-span-1 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-          <h3 className="text-lg font-semibold mb-6 text-gray-900 dark:text-white">Project Analytics</h3>
-          <div className="flex items-end justify-between h-40 space-x-2">
-            {chartData.map((item, index) => (
-              <div key={index} className="flex flex-col items-center space-y-2 flex-1">
-                <div 
-                  className={`w-full rounded-t-lg ${index === 3 ? 'bg-green-600' : index % 2 === 0 ? 'bg-gray-200' : 'bg-green-400'}`}
-                  style={{ height: `${item.value}%` }}
-                ></div>
-                <span className="text-sm text-gray-600 dark:text-gray-400">{item.day}</span>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Reminders */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">

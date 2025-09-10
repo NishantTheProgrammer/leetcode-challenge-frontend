@@ -1,6 +1,21 @@
 import ReactECharts from 'echarts-for-react'
+import { useTheme } from '../../contexts/ThemeContext'
 
 const Overall = () => {
+  const { isDarkMode } = useTheme()
+
+  // Theme colors
+  const colors = {
+    text: isDarkMode ? '#e5e7eb' : '#374151',
+    subtext: isDarkMode ? '#9ca3af' : '#6b7280',
+    splitLine: isDarkMode ? 'rgba(243, 244, 246, 0.1)' : 'rgba(148, 163, 184, 0.1)',
+    axisLine: isDarkMode ? '#374151' : '#e5e7eb',
+    tooltip: {
+      background: isDarkMode ? 'rgba(17, 24, 39, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+      border: isDarkMode ? '#374151' : '#e5e7eb',
+      text: isDarkMode ? '#e5e7eb' : '#374151'
+    }
+  }
   // Static sample data shaped like a typical API response
   const submissionsData = {
     title: 'User Submissions Over Time',
@@ -37,18 +52,18 @@ const Overall = () => {
       text: submissionsData.title,
       left: 'center',
       textStyle: {
-        color: '#374151',
+        color: colors.text,
         fontSize: 18,
         fontWeight: 'bold'
       }
     },
     tooltip: {
       trigger: 'axis',
-      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-      borderColor: '#e5e7eb',
+      backgroundColor: colors.tooltip.background,
+      borderColor: colors.tooltip.border,
       borderWidth: 1,
       textStyle: {
-        color: '#374151'
+        color: colors.tooltip.text
       },
       formatter: function (params) {
         let result = `<div style="font-weight: bold; margin-bottom: 4px;">${params[0].axisValue}</div>`
@@ -127,16 +142,7 @@ const Overall = () => {
       }
     },
     series: series,
-    color: [
-      '#3b82f6', // Blue
-      '#ef4444', // Red  
-      '#10b981', // Green
-      '#f59e0b', // Yellow
-      '#8b5cf6', // Purple
-      '#ec4899', // Pink
-      '#06b6d4', // Cyan
-      '#84cc16'  // Lime
-    ]
+    color: colors.series
   }
 
   return (
