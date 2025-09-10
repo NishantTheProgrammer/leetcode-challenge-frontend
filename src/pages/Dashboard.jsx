@@ -7,6 +7,7 @@ import LanguageUsage from '../components/charts/LanguageUsage'
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [selectedSeason, setSelectedSeason] = useState('1')
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -22,19 +23,18 @@ const Dashboard = () => {
     return `${hours}:${minutes}:${seconds}`
   }
 
+  const seasons = [
+    { id: '1', name: 'Season 1', date: 'Jan 2024 - Mar 2024' },
+    { id: '2', name: 'Season 2', date: 'Apr 2024 - Jun 2024' },
+    { id: '3', name: 'Season 3', date: 'Jul 2024 - Sep 2024' },
+    { id: '4', name: 'Season 4', date: 'Oct 2024 - Dec 2024' },
+  ]
+
   const stats = [
     { title: 'Total Problems', value: '24', change: 'Solved this month', color: 'bg-green-600', icon: '🎯' },
     { title: 'Easy Problems', value: '10', change: '+3 from last week', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🟢' },
     { title: 'Medium Problems', value: '12', change: '+5 from last week', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🟡' },
     { title: 'Hard Problems', value: '2', change: '+1 from last week', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🔴' }
-  ]
-
-  const projectTasks = [
-    { title: 'Two Sum (Easy)', date: 'Solved Dec 24, 2024', icon: '🟢', color: 'bg-green-100 text-green-600' },
-    { title: 'Add Two Numbers (Medium)', date: 'Solved Dec 24, 2024', icon: '🟡', color: 'bg-yellow-100 text-yellow-600' },
-    { title: 'Longest Substring (Medium)', date: 'Solved Dec 25, 2024', icon: '🟡', color: 'bg-yellow-100 text-yellow-600' },
-    { title: 'Regular Expression (Hard)', date: 'Attempted Dec 26, 2024', icon: '🔴', color: 'bg-red-100 text-red-600' },
-    { title: 'Merge K Sorted Lists (Hard)', date: 'Next Challenge', icon: '🎯', color: 'bg-purple-100 text-purple-600' }
   ]
 
   const teamMembers = [
@@ -44,15 +44,12 @@ const Dashboard = () => {
     { name: 'David Oshodi', role: 'Working on: System Design Problems', status: 'In Progress', avatar: 'DO' }
   ]
 
-  const chartData = [
-    { day: 'M', value: 20 },
-    { day: 'T', value: 85 },
-    { day: 'W', value: 60 },
-    { day: 'T', value: 95 },
-    { day: 'F', value: 40 },
-    { day: 'S', value: 55 },
-    { day: 'S', value: 70 }
-  ]
+  const timerStats = {
+    todayTime: '4h 25m',
+    weeklyTime: '28h 45m',
+    averageTime: '3h 15m',
+    longestStreak: '5h 30m'
+  }
 
   return (
     <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
@@ -94,6 +91,24 @@ const Dashboard = () => {
             </div>
           )
         })}
+      </div>
+
+      {/* Season Selector */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+        <div className="flex items-center space-x-4">
+          <label className="text-gray-700 dark:text-gray-300 font-medium">Select Season:</label>
+          <select 
+            value={selectedSeason}
+            onChange={(e) => setSelectedSeason(e.target.value)}
+            className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          >
+            {seasons.map(season => (
+              <option key={season.id} value={season.id}>
+                {season.name} ({season.date})
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Charts Grid */}
@@ -188,10 +203,6 @@ const Dashboard = () => {
         <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Challenge Participants</h3>
-            <button className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center space-x-1">
-              <span>+</span>
-              <span>Add Participant</span>
-            </button>
           </div>
           <div className="space-y-4">
             {teamMembers.map((member, index) => (
@@ -215,12 +226,12 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Time Tracker */}
+        {/* Enhanced Coding Timer */}
         <div className="bg-gradient-to-br from-green-800 to-green-600 rounded-xl p-6 text-white">
-          <h3 className="text-lg font-semibold mb-6">Coding Timer</h3>
+          <h3 className="text-lg font-semibold mb-4">Coding Timer</h3>
           <div className="text-center mb-6">
-            <div className="text-4xl font-bold mb-2">{formatTime(currentTime)}</div>
-            <div className="flex items-center justify-center space-x-4">
+            <div className="text-5xl font-bold mb-6">{formatTime(currentTime)}</div>
+            <div className="flex items-center justify-center space-x-4 mb-8">
               <button className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-colors">
                 <span className="text-xl">⏸️</span>
               </button>
@@ -228,31 +239,26 @@ const Dashboard = () => {
                 <span className="text-xl">⏹️</span>
               </button>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Project Tasks */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Problems</h3>
-          <button className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center space-x-1">
-            <span>+</span>
-            <span>New</span>
-          </button>
-        </div>
-        <div className="space-y-3">
-          {projectTasks.map((task, index) => (
-            <div key={index} className="flex items-center space-x-4 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
-              <div className={`w-10 h-10 ${task.color} rounded-lg flex items-center justify-center`}>
-                <span className="text-lg">{task.icon}</span>
+            {/* Timer Stats */}
+            <div className="grid grid-cols-2 gap-4 text-left">
+              <div className="bg-white bg-opacity-10 rounded-lg p-3">
+                <p className="text-sm opacity-80">Today's Time</p>
+                <p className="text-lg font-semibold">{timerStats.todayTime}</p>
               </div>
-              <div className="flex-1">
-                <h4 className="font-medium text-gray-900 dark:text-white">{task.title}</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{task.date}</p>
+              <div className="bg-white bg-opacity-10 rounded-lg p-3">
+                <p className="text-sm opacity-80">Weekly Time</p>
+                <p className="text-lg font-semibold">{timerStats.weeklyTime}</p>
+              </div>
+              <div className="bg-white bg-opacity-10 rounded-lg p-3">
+                <p className="text-sm opacity-80">Average/Day</p>
+                <p className="text-lg font-semibold">{timerStats.averageTime}</p>
+              </div>
+              <div className="bg-white bg-opacity-10 rounded-lg p-3">
+                <p className="text-sm opacity-80">Longest Streak</p>
+                <p className="text-lg font-semibold">{timerStats.longestStreak}</p>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
