@@ -1,18 +1,23 @@
 import ReactECharts from 'echarts-for-react'
 import { useTheme } from '../../contexts/ThemeContext'
 import { getThemeColors } from './ThemeColors'
+import { users as staticUsers } from '../../data/users'
 
 const DifficultyDistribution = () => {
   const { isDarkMode } = useTheme()
   const colors = getThemeColors(isDarkMode)
+  
+  // Static difficulty distribution data
+  const difficulties = [
+    { name: 'Easy', value: 45, color: colors.leetcode.easy },
+    { name: 'Medium', value: 35, color: colors.leetcode.medium },
+    { name: 'Hard', value: 20, color: colors.leetcode.hard }
+  ]
+  
   // Static sample data
   const data = {
-    title: 'Problem Difficulty Distribution',
-    difficulties: [
-      { name: 'Easy', value: 45, color: colors.leetcode.easy },
-      { name: 'Medium', value: 35, color: colors.leetcode.medium },
-      { name: 'Hard', value: 20, color: colors.leetcode.hard }
-    ]
+    title: `Problem Difficulty Distribution - ${staticUsers.length} Users`,
+    difficulties: difficulties
   }
 
   const option = {

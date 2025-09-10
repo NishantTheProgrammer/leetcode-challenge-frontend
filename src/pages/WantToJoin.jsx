@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { users as staticUsers } from '../data/users'
 
 const WantToJoin = () => {
   const [formData, setFormData] = useState({
@@ -12,39 +13,45 @@ const WantToJoin = () => {
 
   const [submitted, setSubmitted] = useState(false)
 
-  // Sample existing applications data
-  const [applications] = useState([
-    {
-      id: 1,
-      name: 'John Smith',
-      leetcodeUsername: 'johnsmith123',
-      experience: 'intermediate',
-      status: 'Approved',
-      languages: 'Python, JavaScript',
-      appliedDate: '3/1/2024',
-      motivation: 'Looking to improve my problem-solving skills and collaborate with others.'
-    },
-    {
-      id: 2,
-      name: 'Sarah Johnson',
-      leetcodeUsername: 'sarahcodes',
-      experience: 'advanced',
-      status: 'Under Review',
-      languages: 'Java, C++',
-      appliedDate: '3/5/2024',
-      motivation: 'Want to prepare for technical interviews and learn from peers.'
-    },
-    {
-      id: 3,
-      name: 'Michael Chen',
-      leetcodeUsername: 'mchendev',
-      experience: 'expert',
-      status: 'Approved',
-      languages: 'Python, Go, TypeScript',
-      appliedDate: '2/28/2024',
-      motivation: 'Interested in competitive programming and mentoring others.'
-    }
-  ])
+  // Generate application data from static users
+  const [applications] = useState(() => {
+    const experiences = ['beginner', 'intermediate', 'advanced', 'expert']
+    const languageOptions = [
+      'Python, JavaScript',
+      'Java, C++',
+      'Python, Go, TypeScript',
+      'JavaScript, TypeScript, React',
+      'C++, Python, Java',
+      'Go, Rust, JavaScript'
+    ]
+    const statuses = ['Approved', 'Under Review']
+    const motivations = [
+      'Looking to improve my problem-solving skills and collaborate with others.',
+      'Want to prepare for technical interviews and learn from peers.',
+      'Interested in competitive programming and mentoring others.',
+      'Seeking to enhance my algorithmic thinking and data structure knowledge.',
+      'Want to join a community of like-minded developers to grow together.',
+      'Preparing for technical interviews and want structured practice.'
+    ]
+    
+    // Use a subset of users for applications (first 3)
+    return staticUsers.slice(0, 3).map((user, index) => {
+      // Generate random application date
+      const month = Math.floor(Math.random() * 3) + 1
+      const day = Math.floor(Math.random() * 28) + 1
+      
+      return {
+        id: index + 1,
+        name: user.name,
+        leetcodeUsername: user.username,
+        experience: experiences[Math.floor(Math.random() * experiences.length)],
+        status: statuses[Math.floor(Math.random() * statuses.length)],
+        languages: languageOptions[Math.floor(Math.random() * languageOptions.length)],
+        appliedDate: `${month}/${day}/2024`,
+        motivation: motivations[index % motivations.length]
+      }
+    })
+  })
 
   const handleChange = (e) => {
     const { name, value } = e.target

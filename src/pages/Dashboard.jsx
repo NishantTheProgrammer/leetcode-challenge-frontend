@@ -4,10 +4,10 @@ import DifficultyDistribution from '../components/charts/DifficultyDistribution'
 import TopicProgress from '../components/charts/TopicProgress'
 import YearlyContribution from '../components/charts/YearlyContribution'
 import LanguageUsage from '../components/charts/LanguageUsage'
+import { users } from '../data/users'
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date())
-  const [selectedSeason, setSelectedSeason] = useState('1')
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -23,13 +23,6 @@ const Dashboard = () => {
     return `${hours}:${minutes}:${seconds}`
   }
 
-  const seasons = [
-    { id: '1', name: 'Season 1', date: 'Jan 2024 - Mar 2024' },
-    { id: '2', name: 'Season 2', date: 'Apr 2024 - Jun 2024' },
-    { id: '3', name: 'Season 3', date: 'Jul 2024 - Sep 2024' },
-    { id: '4', name: 'Season 4', date: 'Oct 2024 - Dec 2024' },
-  ]
-
   const stats = [
     { title: 'Total Problems', value: '24', change: 'Solved this month', color: 'bg-green-600', icon: '🎯' },
     { title: 'Easy Problems', value: '10', change: '+3 from last week', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🟢' },
@@ -37,11 +30,50 @@ const Dashboard = () => {
     { title: 'Hard Problems', value: '2', change: '+1 from last week', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🔴' }
   ]
 
+  // Static hardcoded data for challenge participants
   const teamMembers = [
-    { name: 'Alexandra Deff', role: 'Solved: Binary Tree Maximum Path Sum', status: 'Completed', avatar: 'AD' },
-    { name: 'Edwin Adenike', role: 'Working on: Dynamic Programming Series', status: 'In Progress', avatar: 'EA' },
-    { name: 'Isaac Oluwatemilorun', role: 'Next: Graph Algorithms Week', status: 'Pending', avatar: 'IO' },
-    { name: 'David Oshodi', role: 'Working on: System Design Problems', status: 'In Progress', avatar: 'DO' }
+    {
+      name: 'Nishant',
+      username: 'nishanttheprogrammer',
+      role: 'Working on: System Design Problems',
+      status: 'In Progress',
+      avatar: 'N'
+    },
+    {
+      name: 'Pushpa Bhandari',
+      username: 'Pushpa_Bhandari',
+      role: 'Solved: Dynamic Programming Series',
+      status: 'Completed',
+      avatar: 'PB'
+    },
+    {
+      name: 'Suraj Singh',
+      username: 'surajsingh542',
+      role: 'Working on: Graph Algorithms Week',
+      status: 'In Progress',
+      avatar: 'SS'
+    },
+    {
+      name: 'Bharat',
+      username: 'Imbharat420',
+      role: 'Next: System Design Problems',
+      status: 'Pending',
+      avatar: 'B'
+    },
+    {
+      name: 'Harshit Sodhani',
+      username: 'Harshit_Sodhani',
+      role: 'Working on: Longest Palindromic Substring',
+      status: 'In Progress',
+      avatar: 'HS'
+    },
+    {
+      name: 'Mohit',
+      username: 'MohitTheProgrammer',
+      role: 'Working on: Longest Palindromic Substring',
+      status: 'In Progress',
+      avatar: 'M'
+    }
   ]
 
   const timerStats = {
@@ -91,24 +123,6 @@ const Dashboard = () => {
             </div>
           )
         })}
-      </div>
-
-      {/* Season Selector */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
-        <div className="flex items-center space-x-4">
-          <label className="text-gray-700 dark:text-gray-300 font-medium">Select Season:</label>
-          <select 
-            value={selectedSeason}
-            onChange={(e) => setSelectedSeason(e.target.value)}
-            className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-          >
-            {seasons.map(season => (
-              <option key={season.id} value={season.id}>
-                {season.name} ({season.date})
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
 
       {/* Charts Grid */}
@@ -212,7 +226,8 @@ const Dashboard = () => {
                 </div>
                 <div className="flex-1">
                   <h4 className="font-medium text-gray-900 dark:text-white">{member.name}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{member.role}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">@{member.username}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{member.role}</p>
                 </div>
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                   member.status === 'Completed' ? 'bg-green-100 text-green-600' :

@@ -1,25 +1,56 @@
 import { Outlet } from 'react-router-dom'
 import ThemeToggle from './ThemeToggle'
+import { useState } from 'react'
+import { users } from '../data/users'
 
 const MainLayout = () => {
+  const [selectedSeason, setSelectedSeason] = useState('1')
+  const totalUsers = users.length
+
+  const seasons = [
+    { id: '1', name: 'Season 1', date: 'Jan 2024 - Mar 2024' },
+    { id: '2', name: 'Season 2', date: 'Apr 2024 - Jun 2024' },
+    { id: '3', name: 'Season 3', date: 'Jul 2024 - Sep 2024' },
+    { id: '4', name: 'Season 4', date: 'Oct 2024 - Dec 2024' },
+  ]
   return (
     <div className="flex-1 bg-gray-50 dark:bg-gray-900">
       {/* Top Navigation */}
       <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Search Bar */}
-          <div className="flex-1 max-w-md">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-gray-400 dark:text-gray-500">🔍</span>
+          {/* Left Side - Season Selector */}
+          <div className="flex items-center space-x-4">
+            <label className="text-gray-700 dark:text-gray-300 font-medium">Select Season:</label>
+            <select 
+              value={selectedSeason}
+              onChange={(e) => setSelectedSeason(e.target.value)}
+              className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            >
+              {seasons.map(season => (
+                <option key={season.id} value={season.id}>
+                  {season.name} ({season.date})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Center - Public Stats */}
+          <div className="flex items-center space-x-6">
+            {/* Total Participants */}
+            <div className="flex items-center space-x-2">
+              <span className="text-blue-500">👥</span>
+              <div>
+                <div className="text-sm font-medium text-gray-900 dark:text-white">{totalUsers} Users</div>
+                <div className="text-xs text-gray-500">Participating</div>
               </div>
-              <input
-                type="text"
-                placeholder="Search task"
-                className="block w-full pl-10 pr-12 py-2 border border-gray-300 dark:border-gray-600 rounded-lg leading-5 bg-white dark:bg-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-green-500 focus:border-green-500"
-              />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                <span className="text-xs text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-600 px-2 py-1 rounded">⌘ F</span>
+            </div>
+
+            {/* Days Remaining */}
+            <div className="flex items-center space-x-2">
+              <span className="text-orange-500">⏳</span>
+              <div>
+                <div className="text-sm font-medium text-gray-900 dark:text-white">45 Days</div>
+                <div className="text-xs text-gray-500">Season Remaining</div>
               </div>
             </div>
           </div>
@@ -28,30 +59,6 @@ const MainLayout = () => {
           <div className="flex items-center space-x-4">
             {/* Theme Toggle */}
             <ThemeToggle />
-            
-            {/* Notifications */}
-            <button className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 relative">
-              <span className="text-xl">🔔</span>
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                3
-              </span>
-            </button>
-
-            {/* Messages */}
-            <button className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
-              <span className="text-xl">💬</span>
-            </button>
-
-            {/* User Profile */}
-            <div className="flex items-center space-x-3">
-              <div className="text-right">
-                <div className="text-sm font-medium text-gray-900 dark:text-white">Totok Michael</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">tmichael20@email.com</div>
-              </div>
-              <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-medium">TM</span>
-              </div>
-            </div>
           </div>
         </div>
       </header>

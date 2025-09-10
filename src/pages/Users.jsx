@@ -1,93 +1,53 @@
 import { useState } from 'react'
+import { users as staticUsers } from '../data/users'
 
 const Users = () => {
-  const [users] = useState([
-    {
-      id: 1,
-      name: 'Alexandra Deff',
-      email: 'alexandra@email.com',
-      rank: 'Gold',
-      status: 'Active',
-      avatar: 'AD',
-      joinDate: '2024-01-15',
-      solved: {
-        total: 145,
-        easy: 52,
-        medium: 78,
-        hard: 15
-      },
-      streak: 15,
-      languages: ['Python3', 'C++', 'JavaScript']
-    },
-    {
-      id: 2,
-      name: 'Edwin Adenike',
-      email: 'edwin@email.com',
-      rank: 'Silver',
-      status: 'Active',
-      avatar: 'EA',
-      joinDate: '2024-02-10',
-      solved: {
-        total: 98,
-        easy: 45,
-        medium: 42,
-        hard: 11
-      },
-      streak: 8,
-      languages: ['JavaScript', 'TypeScript', 'Java']
-    },
-    {
-      id: 3,
-      name: 'Isaac Oluwatemilorun',
-      email: 'isaac@email.com',
-      rank: 'Bronze',
-      status: 'Away',
-      avatar: 'IO',
-      joinDate: '2024-03-05',
-      solved: {
-        total: 67,
-        easy: 35,
-        medium: 28,
-        hard: 4
-      },
-      streak: 3,
-      languages: ['Java', 'Python3']
-    },
-    {
-      id: 4,
-      name: 'David Oshodi',
-      email: 'david@email.com',
-      rank: 'Silver',
-      status: 'Active',
-      avatar: 'DO',
-      joinDate: '2024-01-20',
-      solved: {
-        total: 112,
-        easy: 48,
-        medium: 55,
-        hard: 9
-      },
-      streak: 12,
-      languages: ['C++', 'Python3']
-    },
-    {
-      id: 5,
-      name: 'Charlie Kim',
-      email: 'charlie@email.com',
-      rank: 'Platinum',
-      status: 'Active',
-      avatar: 'CK',
-      joinDate: '2023-12-01',
-      solved: {
-        total: 287,
-        easy: 89,
-        medium: 156,
-        hard: 42
-      },
-      streak: 45,
-      languages: ['Java', 'C++', 'Python3', 'Go']
-    }
-  ])
+  // Generate additional user data for display
+  const [users] = useState(() => {
+    const ranks = ['Bronze', 'Silver', 'Gold', 'Platinum']
+    const languages = [
+      ['Python3', 'JavaScript'], 
+      ['JavaScript', 'TypeScript', 'Java'], 
+      ['Java', 'Python3'], 
+      ['C++', 'Python3'], 
+      ['Java', 'C++', 'Python3', 'Go'],
+      ['JavaScript', 'TypeScript', 'React']
+    ]
+    
+    return staticUsers.map((user, index) => {
+      // Generate random solved problems
+      const easy = Math.floor(Math.random() * 90) + 10
+      const medium = Math.floor(Math.random() * 100) + 20
+      const hard = Math.floor(Math.random() * 30) + 1
+      const total = easy + medium + hard
+      
+      // Generate random streak
+      const streak = Math.floor(Math.random() * 40) + 1
+      
+      // Generate random join date in 2024
+      const month = Math.floor(Math.random() * 3) + 1
+      const day = Math.floor(Math.random() * 28) + 1
+      const joinDate = `2024-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+      
+      return {
+        id: user._id,
+        name: user.name,
+        email: `${user.username}@leetcode.com`,
+        rank: ranks[Math.floor(Math.random() * ranks.length)],
+        status: Math.random() > 0.3 ? 'Active' : 'Away',
+        avatar: user.name.split(' ').map(n => n[0]).join('').toUpperCase(),
+        joinDate,
+        solved: {
+          total,
+          easy,
+          medium,
+          hard
+        },
+        streak,
+        languages: languages[index % languages.length]
+      }
+    })
+  })
 
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState('All')
@@ -190,7 +150,7 @@ const Users = () => {
                       </div>
                       <div className="ml-4">
                         <div className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">@{user.email.split('@')[0]}</div>
                       </div>
                     </div>
                   </td>

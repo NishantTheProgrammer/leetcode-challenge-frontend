@@ -1,68 +1,68 @@
 import { useState } from 'react'
+import { users as staticUsers } from '../data/users'
 
 const Submissions = () => {
-  const [submissions] = useState([
-    {
-      id: 1,
-      title: 'Two Sum',
-      submittedBy: 'Alexandra Deff',
-      submittedDate: '2024-12-20',
-      status: 'Accepted',
-      type: 'Easy',
-      runtime: '56ms',
-      memory: '42.3 MB',
-      language: 'Python3',
-      description: 'Used hash map to find complement in O(n) time complexity'
-    },
-    {
-      id: 2,
-      title: 'Add Two Numbers',
-      submittedBy: 'Edwin Adenike',
-      submittedDate: '2024-12-18',
-      status: 'Wrong Answer',
-      type: 'Medium',
-      runtime: '89ms',
-      memory: '45.1 MB',
-      language: 'JavaScript',
-      description: 'Linked list manipulation with carry handling'
-    },
-    {
-      id: 3,
-      title: 'Longest Substring Without Repeating Characters',
-      submittedBy: 'Isaac Oluwatemilorun',
-      submittedDate: '2024-12-15',
-      status: 'Time Limit Exceeded',
-      type: 'Medium',
-      runtime: '145ms',
-      memory: '48.2 MB',
-      language: 'Java',
-      description: 'Sliding window approach with character frequency tracking'
-    },
-    {
-      id: 4,
-      title: 'Regular Expression Matching',
-      submittedBy: 'David Oshodi',
-      submittedDate: '2024-12-12',
-      status: 'Accepted',
-      type: 'Hard',
-      runtime: '32ms',
-      memory: '40.1 MB',
-      language: 'C++',
-      description: 'Dynamic programming solution with pattern matching'
-    },
-    {
-      id: 5,
-      title: 'Median of Two Sorted Arrays',
-      submittedBy: 'Charlie Kim',
-      submittedDate: '2024-12-10',
-      status: 'Runtime Error',
-      type: 'Hard',
-      runtime: '102ms',
-      memory: '51.4 MB',
-      language: 'Python3',
-      description: 'Binary search approach for O(log(m+n)) complexity'
-    }
-  ])
+  const problemTitles = [
+    'Two Sum',
+    'Add Two Numbers',
+    'Longest Substring Without Repeating Characters',
+    'Regular Expression Matching',
+    'Median of Two Sorted Arrays',
+    'Valid Parentheses',
+    'Merge Two Sorted Lists',
+    'Generate Parentheses',
+    'Merge k Sorted Lists',
+    'Trapping Rain Water'
+  ]
+  
+  const problemTypes = ['Easy', 'Medium', 'Hard']
+  const statuses = ['Accepted', 'Wrong Answer', 'Runtime Error', 'Time Limit Exceeded']
+  const languages = ['Python3', 'JavaScript', 'Java', 'C++', 'TypeScript', 'Go']
+  const descriptions = [
+    'Used hash map to find complement in O(n) time complexity',
+    'Linked list manipulation with carry handling',
+    'Sliding window approach with character frequency tracking',
+    'Dynamic programming solution with pattern matching',
+    'Binary search approach for O(log(m+n)) complexity',
+    'Stack-based solution to track opening and closing brackets',
+    'Two-pointer approach for efficient merging',
+    'Recursive backtracking with proper constraints',
+    'Priority queue implementation for optimal merging',
+    'Two-pass solution with left and right max heights'
+  ]
+  
+  // Generate submissions from static users
+  const [submissions] = useState(() => {
+    return staticUsers.map((user, index) => {
+      const problemIndex = index % problemTitles.length
+      const typeIndex = Math.floor(Math.random() * 3)
+      const statusIndex = Math.floor(Math.random() * 4)
+      const languageIndex = Math.floor(Math.random() * languages.length)
+      
+      // Generate random date in 2024
+      const month = Math.floor(Math.random() * 9) + 1
+      const day = Math.floor(Math.random() * 28) + 1
+      const submittedDate = `2024-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+      
+      // Generate random runtime and memory
+      const runtime = `${Math.floor(Math.random() * 200) + 20}ms`
+      const memory = `${(Math.random() * 20 + 30).toFixed(1)} MB`
+      
+      return {
+        id: index + 1,
+        title: problemTitles[problemIndex],
+        submittedBy: user.name,
+        username: user.username,
+        submittedDate,
+        status: statuses[statusIndex],
+        type: problemTypes[typeIndex],
+        runtime,
+        memory,
+        language: languages[languageIndex],
+        description: descriptions[index % descriptions.length]
+      }
+    })
+  })
 
   const [filterStatus, setFilterStatus] = useState('All')
   const [filterType, setFilterType] = useState('All')
@@ -196,7 +196,7 @@ const Submissions = () => {
                 <div className="flex items-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
                   <div className="flex items-center space-x-1">
                     <span>👤</span>
-                    <span>{submission.submittedBy}</span>
+                    <span>{submission.submittedBy} (@{submission.username})</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <span>📅</span>
