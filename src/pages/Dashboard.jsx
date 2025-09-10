@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Overall from '../components/charts/Overall'
 import DifficultyDistribution from '../components/charts/DifficultyDistribution'
 import TopicProgress from '../components/charts/TopicProgress'
-import WeeklyActivity from '../components/charts/WeeklyActivity'
+import YearlyContribution from '../components/charts/YearlyContribution'
 import LanguageUsage from '../components/charts/LanguageUsage'
 import SolveTime from '../components/charts/SolveTime'
 
@@ -118,7 +118,7 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <WeeklyActivity />
+        <YearlyContribution />
         <SolveTime />
       </div>
 
