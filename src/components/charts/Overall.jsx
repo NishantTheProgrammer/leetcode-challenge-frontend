@@ -1,67 +1,40 @@
 import ReactECharts from 'echarts-for-react'
 
 const Overall = () => {
-  // Static sample data
-  const dates = [
-    '2024-12-12', '2024-12-13', '2024-12-14', '2024-12-15', '2024-12-16',
-    '2024-12-17', '2024-12-18', '2024-12-19', '2024-12-20', '2024-12-21',
-    '2024-12-22', '2024-12-23', '2024-12-24', '2024-12-25', '2024-12-26',
-    '2024-12-27', '2024-12-28', '2024-12-29', '2024-12-30', '2024-12-31',
-    '2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04', '2025-01-05',
-    '2025-01-06', '2025-01-07', '2025-01-08', '2025-01-09', '2025-01-10'
-  ]
+  // Static sample data shaped like a typical API response
+  const submissionsData = {
+    title: 'User Submissions Over Time',
+    dates: [
+      '2024-12-12', '2024-12-13', '2024-12-14', '2024-12-15', '2024-12-16',
+      '2024-12-17', '2024-12-18', '2024-12-19', '2024-12-20', '2024-12-21',
+      '2024-12-22', '2024-12-23', '2024-12-24', '2024-12-25', '2024-12-26',
+      '2024-12-27', '2024-12-28', '2024-12-29', '2024-12-30', '2024-12-31',
+      '2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04', '2025-01-05',
+      '2025-01-06', '2025-01-07', '2025-01-08', '2025-01-09', '2025-01-10'
+    ],
+    users: [
+      { name: 'Alice', data: [0, 1, 1, 2, 2, 3, 3, 5, 5, 6, 7, 7, 9, 10, 10, 12, 13, 13, 14, 15, 17, 17, 18, 19, 21, 21, 23, 24, 26, 27] },
+      { name: 'Bob', data: [0, 0, 0, 1, 1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 9, 9, 10, 12, 12, 13, 14, 15, 16, 16, 18, 19, 20, 22, 23, 26] },
+      { name: 'Charlie', data: [1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 28, 29, 29, 30, 30, 30] },
+      { name: 'Diana', data: [0, 0, 1, 1, 2, 3, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15, 16, 17, 19, 19, 20, 22, 23, 24, 26] },
+      { name: 'Eve', data: [0, 0, 0, 0, 1, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15, 16, 18, 19, 20, 22, 23, 25] }
+    ]
+  }
 
-  const series = [
-    {
-      name: 'Alice',
-      type: 'line',
-      smooth: true,
-      symbol: 'circle',
-      symbolSize: 6,
-      lineStyle: { width: 3 },
-      data: [0, 1, 1, 2, 2, 3, 3, 5, 5, 6, 7, 7, 9, 10, 10, 12, 13, 13, 14, 15, 17, 17, 18, 19, 21, 21, 23, 24, 26, 27]
-    },
-    {
-      name: 'Bob',
-      type: 'line',
-      smooth: true,
-      symbol: 'circle',
-      symbolSize: 6,
-      lineStyle: { width: 3 },
-      data: [0, 0, 0, 1, 1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 9, 9, 10, 12, 12, 13, 14, 15, 16, 16, 18, 19, 20, 22, 23, 26]
-    },
-    {
-      name: 'Charlie',
-      type: 'line',
-      smooth: true,
-      symbol: 'circle',
-      symbolSize: 6,
-      lineStyle: { width: 3 },
-      data: [1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 28, 29, 29, 30, 30, 30]
-    },
-    {
-      name: 'Diana',
-      type: 'line',
-      smooth: true,
-      symbol: 'circle',
-      symbolSize: 6,
-      lineStyle: { width: 3 },
-      data: [0, 0, 1, 1, 2, 3, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15, 16, 17, 19, 19, 20, 22, 23, 24, 26]
-    },
-    {
-      name: 'Eve',
-      type: 'line',
-      smooth: true,
-      symbol: 'circle',
-      symbolSize: 6,
-      lineStyle: { width: 3 },
-      data: [0, 0, 0, 0, 1, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15, 16, 18, 19, 20, 22, 23, 25]
-    }
-  ]
+  // Adapt API shape into ECharts series config
+  const series = submissionsData.users.map((u) => ({
+    name: u.name,
+    type: 'line',
+    smooth: true,
+    symbol: 'circle',
+    symbolSize: 6,
+    lineStyle: { width: 3 },
+    data: u.data
+  }))
 
   const option = {
     title: {
-      text: 'User Submissions Over Time',
+      text: submissionsData.title,
       left: 'center',
       textStyle: {
         color: '#374151',
@@ -106,7 +79,7 @@ const Overall = () => {
     xAxis: {
       type: 'category',
       boundaryGap: false,
-      data: dates,
+      data: submissionsData.dates,
       axisLine: {
         lineStyle: {
           color: '#e5e7eb'
@@ -122,8 +95,9 @@ const Overall = () => {
       splitLine: {
         show: true,
         lineStyle: {
-          color: '#f3f4f6',
-          type: 'dashed'
+          color: 'rgba(148, 163, 184, 0.1)',
+          type: 'dashed',
+          width: 1
         }
       }
     },
@@ -146,8 +120,9 @@ const Overall = () => {
       },
       splitLine: {
         lineStyle: {
-          color: '#f3f4f6',
-          type: 'dashed'
+          color: 'rgba(148, 163, 184, 0.1)',
+          type: 'dashed',
+          width: 1
         }
       }
     },
