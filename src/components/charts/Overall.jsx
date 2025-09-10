@@ -1,21 +1,10 @@
 import ReactECharts from 'echarts-for-react'
 import { useTheme } from '../../contexts/ThemeContext'
+import { getThemeColors } from './ThemeColors'
 
 const Overall = () => {
   const { isDarkMode } = useTheme()
-
-  // Theme colors
-  const colors = {
-    text: isDarkMode ? '#e5e7eb' : '#374151',
-    subtext: isDarkMode ? '#9ca3af' : '#6b7280',
-    splitLine: isDarkMode ? 'rgba(243, 244, 246, 0.1)' : 'rgba(148, 163, 184, 0.1)',
-    axisLine: isDarkMode ? '#374151' : '#e5e7eb',
-    tooltip: {
-      background: isDarkMode ? 'rgba(17, 24, 39, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-      border: isDarkMode ? '#374151' : '#e5e7eb',
-      text: isDarkMode ? '#e5e7eb' : '#374151'
-    }
-  }
+  const colors = getThemeColors(isDarkMode)
   // Static sample data shaped like a typical API response
   const submissionsData = {
     title: 'User Submissions Over Time',
@@ -40,10 +29,22 @@ const Overall = () => {
   const series = submissionsData.users.map((u) => ({
     name: u.name,
     type: 'line',
-    smooth: true,
+    smooth: false,
     symbol: 'circle',
-    symbolSize: 6,
-    lineStyle: { width: 3 },
+    symbolSize: 8,
+    lineStyle: { 
+      width: 3,
+      type: 'solid',
+      opacity: 0.8
+    },
+    emphasis: {
+      focus: 'series',
+      symbolSize: 12,
+      lineStyle: {
+        width: 4,
+        opacity: 1
+      }
+    },
     data: u.data
   }))
 
@@ -63,7 +64,15 @@ const Overall = () => {
       borderColor: colors.tooltip.border,
       borderWidth: 1,
       textStyle: {
-        color: colors.tooltip.text
+        color: colors.tooltip.text,
+        fontSize: 12
+      },
+      axisPointer: {
+        type: 'line',
+        lineStyle: {
+          color: colors.splitLine,
+          type: 'dashed'
+        }
       },
       formatter: function (params) {
         let result = `<div style="font-weight: bold; margin-bottom: 4px;">${params[0].axisValue}</div>`
@@ -81,15 +90,22 @@ const Overall = () => {
       data: series.map(s => s.name),
       top: 40,
       textStyle: {
-        color: '#6b7280'
-      }
+        color: colors.subtext,
+        fontSize: 12
+      },
+      itemWidth: 15,
+      itemHeight: 10,
+      itemGap: 25,
+      icon: 'roundRect'
     },
     grid: {
       left: '3%',
       right: '4%',
-      bottom: '8%',
+      bottom: '10%',
       top: '20%',
-      containLabel: true
+      containLabel: true,
+      show: true,
+      backgroundColor: isDarkMode ? 'rgba(30, 41, 59, 0.2)' : 'rgba(241, 245, 249, 0.3)'
     },
     xAxis: {
       type: 'category',
@@ -101,16 +117,31 @@ const Overall = () => {
         }
       },
       axisLabel: {
-        color: '#6b7280',
+        color: colors.subtext,
         formatter: function (value) {
           const date = new Date(value)
+          // Only show every 3rd date to avoid crowding
+          const index = submissionsData.dates.indexOf(value)
+          if (index % 3 !== 0) return ''
           return `${date.getMonth() + 1}/${date.getDate()}`
-        }
+        },
+        interval: 0,
+        align: 'center',
+        fontSize: 11
       },
       splitLine: {
         show: true,
         lineStyle: {
-          color: 'rgba(148, 163, 184, 0.1)',
+          color: colors.splitLine,
+          type: 'dashed',
+          width: 1,
+          opacity: 0.3
+        }
+      },
+      axisPointer: {
+        show: true,
+        type: 'line',
+        lineStyle: {
           type: 'dashed',
           width: 1
         }
@@ -131,7 +162,8 @@ const Overall = () => {
         }
       },
       axisLabel: {
-        color: '#6b7280'
+        color: colors.subtext,
+        fontSize: 11
       },
       splitLine: {
         lineStyle: {
