@@ -63,15 +63,6 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">LeetCode Challenge</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">Track your daily coding progress and compete with friends.</p>
         </div>
-        <div className="flex space-x-3">
-          <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center space-x-2 shadow-sm">
-            <span>+</span>
-            <span>Add Solution</span>
-          </button>
-          <button className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-lg font-medium shadow-sm">
-            Import Data
-          </button>
-        </div>
       </div>
 
       {/* Stats Cards */}

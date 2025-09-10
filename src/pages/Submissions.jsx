@@ -104,15 +104,6 @@ const Submissions = () => {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Problem Submissions</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">Track your LeetCode problem solutions and performance.</p>
         </div>
-        <div className="flex space-x-3">
-          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2">
-            <span>+</span>
-            <span>Submit Solution</span>
-          </button>
-          <button className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium">
-            Export
-          </button>
-        </div>
       </div>
 
       {/* Stats Cards */}
@@ -232,14 +223,6 @@ const Submissions = () => {
                     }`}>{submission.type}</span>
                   </div>
                 </div>
-              </div>
-              <div className="flex space-x-2 ml-4">
-                <button className="px-3 py-1 text-sm font-medium text-green-600 hover:text-green-700 border border-green-300 rounded-lg hover:bg-green-50">
-                  View Solution
-                </button>
-                <button className="px-3 py-1 text-sm font-medium text-blue-600 hover:text-blue-700 border border-blue-300 rounded-lg hover:bg-blue-50">
-                  Try Again
-                </button>
               </div>
             </div>
           </div>

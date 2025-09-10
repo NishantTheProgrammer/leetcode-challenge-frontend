@@ -107,15 +107,6 @@ const Users = () => {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Participants</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">View rankings and progress of challenge participants.</p>
         </div>
-        <div className="flex space-x-3">
-          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2">
-            <span>+</span>
-            <span>Add Participant</span>
-          </button>
-          <button className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium">
-            Export
-          </button>
-        </div>
       </div>
 
       {/* Stats Cards */}
@@ -187,7 +178,6 @@ const Users = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Projects</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Join Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -237,12 +227,6 @@ const Users = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {new Date(user.joinDate).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex space-x-2">
-                      <button className="text-green-600 hover:text-green-900">Edit</button>
-                      <button className="text-red-600 hover:text-red-900">Delete</button>
-                    </div>
                   </td>
                 </tr>
               ))}
