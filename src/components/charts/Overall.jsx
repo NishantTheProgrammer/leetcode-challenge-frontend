@@ -1,39 +1,63 @@
 import ReactECharts from 'echarts-for-react'
-import { useMemo } from 'react'
 
 const Overall = () => {
-  // Sample data - replace with your actual data
-  const { dates, series } = useMemo(() => {
-    const users = ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve']
-    const dates = []
-    const today = new Date()
-    
-    // Generate last 30 days
-    for (let i = 29; i >= 0; i--) {
-      const date = new Date(today)
-      date.setDate(date.getDate() - i)
-      dates.push(date.toISOString().split('T')[0])
-    }
-    
-    const series = users.map((user, userIndex) => ({
-      name: user,
+  // Static sample data
+  const dates = [
+    '2024-12-12', '2024-12-13', '2024-12-14', '2024-12-15', '2024-12-16',
+    '2024-12-17', '2024-12-18', '2024-12-19', '2024-12-20', '2024-12-21',
+    '2024-12-22', '2024-12-23', '2024-12-24', '2024-12-25', '2024-12-26',
+    '2024-12-27', '2024-12-28', '2024-12-29', '2024-12-30', '2024-12-31',
+    '2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04', '2025-01-05',
+    '2025-01-06', '2025-01-07', '2025-01-08', '2025-01-09', '2025-01-10'
+  ]
+
+  const series = [
+    {
+      name: 'Alice',
       type: 'line',
       smooth: true,
       symbol: 'circle',
       symbolSize: 6,
-      lineStyle: {
-        width: 3,
-      },
-      data: dates.map((_, dateIndex) => {
-        // Create increasing trend with some variation
-        const baseValue = Math.floor((dateIndex / dates.length) * 20) + (userIndex * 3)
-        const variation = Math.floor(Math.random() * 5) - 2 // -2 to +2 variation
-        return Math.max(0, baseValue + variation)
-      })
-    }))
-    
-    return { dates, series }
-  }, []) // Empty dependency array means this only runs once
+      lineStyle: { width: 3 },
+      data: [0, 1, 1, 2, 2, 3, 3, 5, 5, 6, 7, 7, 9, 10, 10, 12, 13, 13, 14, 15, 17, 17, 18, 19, 21, 21, 23, 24, 26, 27]
+    },
+    {
+      name: 'Bob',
+      type: 'line',
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 6,
+      lineStyle: { width: 3 },
+      data: [0, 0, 0, 1, 1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 9, 9, 10, 12, 12, 13, 14, 15, 16, 16, 18, 19, 20, 22, 23, 26]
+    },
+    {
+      name: 'Charlie',
+      type: 'line',
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 6,
+      lineStyle: { width: 3 },
+      data: [1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 28, 29, 29, 30, 30, 30]
+    },
+    {
+      name: 'Diana',
+      type: 'line',
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 6,
+      lineStyle: { width: 3 },
+      data: [0, 0, 1, 1, 2, 3, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15, 16, 17, 19, 19, 20, 22, 23, 24, 26]
+    },
+    {
+      name: 'Eve',
+      type: 'line',
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 6,
+      lineStyle: { width: 3 },
+      data: [0, 0, 0, 0, 1, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15, 16, 18, 19, 20, 22, 23, 25]
+    }
+  ]
 
   const option = {
     title: {
