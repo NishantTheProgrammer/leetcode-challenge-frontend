@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Overall from '../components/charts/Overall'
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -99,6 +100,8 @@ const Dashboard = () => {
           )
         })}
       </div>
+
+      <Overall />
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
