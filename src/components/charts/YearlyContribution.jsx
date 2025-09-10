@@ -101,41 +101,38 @@ const YearlyContribution = () => {
       }
     },
     calendar: {
-      top: 30,
-      left: 40,
-      right: 20,
-      cellSize: ['auto', 10],
+      top: 25,
+      left: 35,
+      right: 15,
+      cellSize: [13, 13], // Increased cell size
+      gap: 6, // Increased gap between cells
       range: new Date().getFullYear(),
       itemStyle: {
-        borderWidth: 2,
-        borderColor: isDarkMode ? '#1f2937' : '#ffffff'
+        borderWidth: 0,
+        borderRadius: 2
       },
       yearLabel: { show: false },
       dayLabel: {
         firstDay: 0,
         nameMap: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
         show: true,
-        margin: 10,
+        margin: 8, // Increased margin
         color: colors.subtext,
-        fontSize: 11,
-        position: 'left'
+        fontSize: 9,
+        position: 'left',
+        align: 'left'
       },
       monthLabel: {
         show: true,
-        nameMap: 'en',
-        margin: 10,
+        nameMap: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        margin: 8, // Increased margin
         color: colors.subtext,
-        fontSize: 11,
+        fontSize: 10,
         position: 'top',
         align: 'left'
       },
       splitLine: {
-        show: true,
-        lineStyle: {
-          color: isDarkMode ? '#374151' : '#f1f5f9',
-          width: 2,
-          type: 'solid'
-        }
+        show: false
       }
     },
     series: {
@@ -145,6 +142,9 @@ const YearlyContribution = () => {
       data: generateYearData,
       label: {
         show: false
+      },
+      itemStyle: {
+        borderRadius: 2
       }
     }
   }
@@ -156,10 +156,10 @@ const YearlyContribution = () => {
       </div>
       <ReactECharts 
         option={option} 
-        style={{ height: '150px', width: '100%' }}
+        style={{ height: '160px', width: '100%' }} // Increased height
         className="dark:[&_.echarts-tooltip]:!bg-gray-800 dark:[&_.echarts-tooltip]:!border-gray-600"
       />
-      <div className="flex items-center justify-end gap-2 mt-2 text-xs text-gray-500 dark:text-gray-400">
+      <div className="flex items-center justify-end gap-3 mt-4 text-xs text-gray-500 dark:text-gray-400">
         <span>Less</span>
         {[0, 7, 15, 23, 30].map((level, i) => (
           <div 
