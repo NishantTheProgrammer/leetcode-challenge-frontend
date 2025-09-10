@@ -12,12 +12,6 @@ const Sidebar = () => {
     { path: '/join', icon: '🚀', label: 'Want to Join' }
   ]
 
-  const generalItems = [
-    { icon: '⚙️', label: 'Settings' },
-    { icon: '❓', label: 'Help' },
-    { icon: '🚪', label: 'Logout' }
-  ]
-
   return (
     <div className={`bg-white h-screen shadow-sm transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} border-r border-gray-100`}>
       {/* Header */}
@@ -52,22 +46,6 @@ const Sidebar = () => {
                 </span>
               )}
             </Link>
-          ))}
-        </nav>
-      </div>
-
-      {/* General Section */}
-      <div className="px-6 mt-8">
-        {!isCollapsed && <div className="text-xs text-gray-400 uppercase tracking-wider mb-4 font-medium">GENERAL</div>}
-        <nav className="space-y-1">
-          {generalItems.map((item, index) => (
-            <button
-              key={index}
-              className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 w-full text-left transition-all duration-200"
-            >
-              <span className="text-lg">{item.icon}</span>
-              {!isCollapsed && <span className="font-medium text-sm">{item.label}</span>}
-            </button>
           ))}
         </nav>
       </div>
