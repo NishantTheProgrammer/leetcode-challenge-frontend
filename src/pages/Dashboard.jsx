@@ -4,7 +4,6 @@ import DifficultyDistribution from '../components/charts/DifficultyDistribution'
 import TopicProgress from '../components/charts/TopicProgress'
 import YearlyContribution from '../components/charts/YearlyContribution'
 import LanguageUsage from '../components/charts/LanguageUsage'
-import SolveTime from '../components/charts/SolveTime'
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -110,76 +109,74 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <YearlyContribution />
-        <SolveTime />
-      </div>
-
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        {/* Reminders */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Today's Challenge</h3>
-          </div>
-          <div className="space-y-4">
-            <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Median of Two Sorted Arrays</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Difficulty: Hard • Time Limit: 45 mins</p>
-              <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2">
-                <span className="w-2 h-2 bg-white rounded-full"></span>
-                <span>Start Challenge</span>
-              </button>
+        
+        {/* Today's Challenge and Progress Grid */}
+        <div className="grid grid-cols-2 gap-6">
+          {/* Today's Challenge */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Today's Challenge</h3>
             </div>
-          </div>
-        </div>
-
-        {/* Project Progress */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Challenge Progress</h3>
-          </div>
-          <div className="text-center mb-6">
-            <div className="relative inline-flex items-center justify-center">
-              <svg className="w-32 h-32 transform -rotate-90">
-                <circle
-                  cx="64"
-                  cy="64"
-                  r="56"
-                  stroke="currentColor"
-                  strokeWidth="8"
-                  fill="transparent"
-                  className="text-gray-200 dark:text-gray-600"
-                />
-                <circle
-                  cx="64"
-                  cy="64"
-                  r="56"
-                  stroke="currentColor"
-                  strokeWidth="8"
-                  fill="transparent"
-                  strokeDasharray={`${2 * Math.PI * 56}`}
-                  strokeDashoffset={`${2 * Math.PI * 56 * (1 - 0.41)}`}
-                  className="text-green-600"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">41%</span>
+            <div className="space-y-4">
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 dark:text-white mb-2">Median of Two Sorted Arrays</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Difficulty: Hard • Time Limit: 45 mins</p>
+                <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  <span>Start Challenge</span>
+                </button>
               </div>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Monthly Goal Progress</p>
           </div>
-          <div className="flex items-center justify-center space-x-6 text-sm">
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-green-600 rounded-full"></div>
-              <span className="text-gray-600 dark:text-gray-400">Completed</span>
+
+          {/* Challenge Progress */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Challenge Progress</h3>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-              <span className="text-gray-600 dark:text-gray-400">In Progress</span>
+            <div className="text-center mb-6">
+              <div className="relative inline-flex items-center justify-center">
+                <svg className="w-24 h-24 transform -rotate-90">
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r="40"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    fill="transparent"
+                    className="text-gray-200 dark:text-gray-600"
+                  />
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r="40"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    fill="transparent"
+                    strokeDasharray={`${2 * Math.PI * 40}`}
+                    strokeDashoffset={`${2 * Math.PI * 40 * (1 - 0.41)}`}
+                    className="text-green-600"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-gray-900 dark:text-white">41%</span>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Monthly Goal Progress</p>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-gray-200 rounded-full"></div>
-              <span className="text-gray-600 dark:text-gray-400">Pending</span>
+            <div className="flex items-center justify-center space-x-4 text-xs">
+              <div className="flex items-center space-x-1">
+                <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                <span className="text-gray-600 dark:text-gray-400">Completed</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                <span className="text-gray-600 dark:text-gray-400">In Progress</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <div className="w-2 h-2 bg-gray-200 rounded-full"></div>
+                <span className="text-gray-600 dark:text-gray-400">Pending</span>
+              </div>
             </div>
           </div>
         </div>
