@@ -6,51 +6,86 @@ const Users = () => {
       id: 1,
       name: 'Alexandra Deff',
       email: 'alexandra@email.com',
-      role: 'Senior Developer',
+      rank: 'Gold',
       status: 'Active',
       avatar: 'AD',
       joinDate: '2024-01-15',
-      projects: 8
+      solved: {
+        total: 145,
+        easy: 52,
+        medium: 78,
+        hard: 15
+      },
+      streak: 15,
+      languages: ['Python3', 'C++', 'JavaScript']
     },
     {
       id: 2,
       name: 'Edwin Adenike',
       email: 'edwin@email.com',
-      role: 'Frontend Developer',
+      rank: 'Silver',
       status: 'Active',
       avatar: 'EA',
       joinDate: '2024-02-10',
-      projects: 6
+      solved: {
+        total: 98,
+        easy: 45,
+        medium: 42,
+        hard: 11
+      },
+      streak: 8,
+      languages: ['JavaScript', 'TypeScript', 'Java']
     },
     {
       id: 3,
       name: 'Isaac Oluwatemilorun',
       email: 'isaac@email.com',
-      role: 'Full Stack Developer',
+      rank: 'Bronze',
       status: 'Away',
       avatar: 'IO',
       joinDate: '2024-03-05',
-      projects: 4
+      solved: {
+        total: 67,
+        easy: 35,
+        medium: 28,
+        hard: 4
+      },
+      streak: 3,
+      languages: ['Java', 'Python3']
     },
     {
       id: 4,
       name: 'David Oshodi',
       email: 'david@email.com',
-      role: 'UI/UX Designer',
+      rank: 'Silver',
       status: 'Active',
       avatar: 'DO',
       joinDate: '2024-01-20',
-      projects: 7
+      solved: {
+        total: 112,
+        easy: 48,
+        medium: 55,
+        hard: 9
+      },
+      streak: 12,
+      languages: ['C++', 'Python3']
     },
     {
       id: 5,
-      name: 'Totok Michael',
-      email: 'tmichael20@email.com',
-      role: 'Project Manager',
+      name: 'Charlie Kim',
+      email: 'charlie@email.com',
+      rank: 'Platinum',
       status: 'Active',
-      avatar: 'TM',
+      avatar: 'CK',
       joinDate: '2023-12-01',
-      projects: 12
+      solved: {
+        total: 287,
+        easy: 89,
+        medium: 156,
+        hard: 42
+      },
+      streak: 45,
+      languages: ['Java', 'C++', 'Python3', 'Go']
     }
   ])
 
@@ -69,13 +104,13 @@ const Users = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Users</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage team members and their access.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Participants</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">View rankings and progress of challenge participants.</p>
         </div>
         <div className="flex space-x-3">
           <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2">
             <span>+</span>
-            <span>Add User</span>
+            <span>Add Participant</span>
           </button>
           <button className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium">
             Export
@@ -87,8 +122,8 @@ const Users = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Users</h3>
-            <span className="text-2xl">👥</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Participants</h3>
+            <span className="text-2xl">👨‍💻</span>
           </div>
           <div className="text-2xl font-bold text-gray-900 dark:text-white">{users.length}</div>
         </div>
@@ -108,10 +143,10 @@ const Users = () => {
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Projects</h3>
-            <span className="text-2xl">📊</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Problems Solved</h3>
+            <span className="text-2xl">🎯</span>
           </div>
-          <div className="text-2xl font-bold text-blue-600">{users.reduce((sum, u) => sum + u.projects, 0)}</div>
+          <div className="text-2xl font-bold text-blue-600">{users.reduce((sum, u) => sum + u.solved.total, 0)}</div>
         </div>
       </div>
 
@@ -121,7 +156,7 @@ const Users = () => {
           <div className="flex-1">
             <input
               type="text"
-              placeholder="Search users..."
+              placeholder="Search participants..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
@@ -146,7 +181,9 @@ const Users = () => {
             <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">User</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Role</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rank</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Problems Solved</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Streak</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Projects</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Join Date</th>
@@ -168,7 +205,23 @@ const Users = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900 dark:text-white">{user.role}</div>
+                    <div className={`text-sm font-medium ${
+                      user.rank === 'Platinum' ? 'text-purple-600' :
+                      user.rank === 'Gold' ? 'text-yellow-600' :
+                      user.rank === 'Silver' ? 'text-gray-500' :
+                      'text-orange-600'
+                    }`}>{user.rank}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900 dark:text-white">
+                      {user.solved.total} ({user.solved.easy} / {user.solved.medium} / {user.solved.hard})
+                    </div>
+                    <div className="text-xs text-gray-500">Easy / Medium / Hard</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900 dark:text-white">
+                      {user.streak} days 🔥
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
@@ -179,8 +232,8 @@ const Users = () => {
                       {user.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    {user.projects}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    {user.languages.join(', ')}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {new Date(user.joinDate).toLocaleDateString()}

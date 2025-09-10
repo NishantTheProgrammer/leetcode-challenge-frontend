@@ -19,25 +19,25 @@ const Dashboard = () => {
   }
 
   const stats = [
-    { title: 'Total Projects', value: '24', change: 'Increased from last month', color: 'bg-green-600', icon: '📊' },
-    { title: 'Ended Projects', value: '10', change: 'Increased from last month', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '✅' },
-    { title: 'Running Projects', value: '12', change: 'Decreased from last month', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🏃' },
-    { title: 'Pending Project', value: '2', change: 'On Discuss', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '⏳' }
+    { title: 'Total Problems', value: '24', change: 'Solved this month', color: 'bg-green-600', icon: '🎯' },
+    { title: 'Easy Problems', value: '10', change: '+3 from last week', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🟢' },
+    { title: 'Medium Problems', value: '12', change: '+5 from last week', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🟡' },
+    { title: 'Hard Problems', value: '2', change: '+1 from last week', color: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700', textColor: 'text-gray-900 dark:text-white', icon: '🔴' }
   ]
 
   const projectTasks = [
-    { title: 'Develop API Endpoints', date: 'Dec date: Nov 24, 2024', icon: '⚡', color: 'bg-blue-100 text-blue-600' },
-    { title: 'Onboarding Flow', date: 'Dec date: Nov 24, 2024', icon: '🔄', color: 'bg-green-100 text-green-600' },
-    { title: 'Build Dashboard', date: 'Dec date: Nov 25, 2024', icon: '📊', color: 'bg-purple-100 text-purple-600' },
-    { title: 'Optimize Page Load', date: 'Dec date: Nov 26, 2024', icon: '⚡', color: 'bg-yellow-100 text-yellow-600' },
-    { title: 'Cross-Browser Testing', date: 'Dec date: Dec 4, 2024', icon: '🌐', color: 'bg-red-100 text-red-600' }
+    { title: 'Two Sum (Easy)', date: 'Solved Dec 24, 2024', icon: '🟢', color: 'bg-green-100 text-green-600' },
+    { title: 'Add Two Numbers (Medium)', date: 'Solved Dec 24, 2024', icon: '🟡', color: 'bg-yellow-100 text-yellow-600' },
+    { title: 'Longest Substring (Medium)', date: 'Solved Dec 25, 2024', icon: '🟡', color: 'bg-yellow-100 text-yellow-600' },
+    { title: 'Regular Expression (Hard)', date: 'Attempted Dec 26, 2024', icon: '🔴', color: 'bg-red-100 text-red-600' },
+    { title: 'Merge K Sorted Lists (Hard)', date: 'Next Challenge', icon: '🎯', color: 'bg-purple-100 text-purple-600' }
   ]
 
   const teamMembers = [
-    { name: 'Alexandra Deff', role: 'Working on GitHub Project Repository', status: 'Completed', avatar: 'AD' },
-    { name: 'Edwin Adenike', role: 'Working on Integrate User Authentication System', status: 'In Progress', avatar: 'EA' },
-    { name: 'Isaac Oluwatemilorun', role: 'Working on Develop Checkout Filter Functionality', status: 'Pending', avatar: 'IO' },
-    { name: 'David Oshodi', role: 'Working on Responsive Layout for Homepage', status: 'In Progress', avatar: 'DO' }
+    { name: 'Alexandra Deff', role: 'Solved: Binary Tree Maximum Path Sum', status: 'Completed', avatar: 'AD' },
+    { name: 'Edwin Adenike', role: 'Working on: Dynamic Programming Series', status: 'In Progress', avatar: 'EA' },
+    { name: 'Isaac Oluwatemilorun', role: 'Next: Graph Algorithms Week', status: 'Pending', avatar: 'IO' },
+    { name: 'David Oshodi', role: 'Working on: System Design Problems', status: 'In Progress', avatar: 'DO' }
   ]
 
   const chartData = [
@@ -55,13 +55,13 @@ const Dashboard = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Plan, prioritize, and accomplish your tasks with ease.</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">LeetCode Challenge</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Track your daily coding progress and compete with friends.</p>
         </div>
         <div className="flex space-x-3">
           <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center space-x-2 shadow-sm">
             <span>+</span>
-            <span>Add Project</span>
+            <span>Add Solution</span>
           </button>
           <button className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-lg font-medium shadow-sm">
             Import Data
@@ -124,15 +124,15 @@ const Dashboard = () => {
         {/* Reminders */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Reminders</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Today's Challenge</h3>
           </div>
           <div className="space-y-4">
             <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Meeting with Arc Company</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Time: 02:00 pm - 04:00 pm</p>
+              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Median of Two Sorted Arrays</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Difficulty: Hard • Time Limit: 45 mins</p>
               <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2">
                 <span className="w-2 h-2 bg-white rounded-full"></span>
-                <span>Start Meeting</span>
+                <span>Start Challenge</span>
               </button>
             </div>
           </div>
@@ -141,7 +141,7 @@ const Dashboard = () => {
         {/* Project Progress */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Project Progress</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Challenge Progress</h3>
           </div>
           <div className="text-center mb-6">
             <div className="relative inline-flex items-center justify-center">
@@ -171,7 +171,7 @@ const Dashboard = () => {
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">41%</span>
               </div>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Project Ended</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Monthly Goal Progress</p>
           </div>
           <div className="flex items-center justify-center space-x-6 text-sm">
             <div className="flex items-center space-x-2">
@@ -195,10 +195,10 @@ const Dashboard = () => {
         {/* Team Collaboration */}
         <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Team Collaboration</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Challenge Participants</h3>
             <button className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center space-x-1">
               <span>+</span>
-              <span>Add Member</span>
+              <span>Add Participant</span>
             </button>
           </div>
           <div className="space-y-4">
@@ -225,7 +225,7 @@ const Dashboard = () => {
 
         {/* Time Tracker */}
         <div className="bg-gradient-to-br from-green-800 to-green-600 rounded-xl p-6 text-white">
-          <h3 className="text-lg font-semibold mb-6">Time Tracker</h3>
+          <h3 className="text-lg font-semibold mb-6">Coding Timer</h3>
           <div className="text-center mb-6">
             <div className="text-4xl font-bold mb-2">{formatTime(currentTime)}</div>
             <div className="flex items-center justify-center space-x-4">
@@ -243,7 +243,7 @@ const Dashboard = () => {
       {/* Project Tasks */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Project</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Problems</h3>
           <button className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center space-x-1">
             <span>+</span>
             <span>New</span>

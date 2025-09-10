@@ -4,53 +4,63 @@ const Submissions = () => {
   const [submissions] = useState([
     {
       id: 1,
-      title: 'GitHub Project Repository Integration',
+      title: 'Two Sum',
       submittedBy: 'Alexandra Deff',
-      submittedDate: '2024-11-20',
-      status: 'Approved',
-      type: 'Feature',
-      priority: 'High',
-      description: 'Integration with GitHub API for project repository management'
+      submittedDate: '2024-12-20',
+      status: 'Accepted',
+      type: 'Easy',
+      runtime: '56ms',
+      memory: '42.3 MB',
+      language: 'Python3',
+      description: 'Used hash map to find complement in O(n) time complexity'
     },
     {
       id: 2,
-      title: 'User Authentication System',
+      title: 'Add Two Numbers',
       submittedBy: 'Edwin Adenike',
-      submittedDate: '2024-11-18',
-      status: 'Under Review',
-      type: 'Feature',
-      priority: 'High',
-      description: 'Complete user authentication and authorization system'
+      submittedDate: '2024-12-18',
+      status: 'Wrong Answer',
+      type: 'Medium',
+      runtime: '89ms',
+      memory: '45.1 MB',
+      language: 'JavaScript',
+      description: 'Linked list manipulation with carry handling'
     },
     {
       id: 3,
-      title: 'Checkout Filter Functionality',
+      title: 'Longest Substring Without Repeating Characters',
       submittedBy: 'Isaac Oluwatemilorun',
-      submittedDate: '2024-11-15',
-      status: 'In Progress',
-      type: 'Enhancement',
-      priority: 'Medium',
-      description: 'Advanced filtering options for checkout process'
+      submittedDate: '2024-12-15',
+      status: 'Time Limit Exceeded',
+      type: 'Medium',
+      runtime: '145ms',
+      memory: '48.2 MB',
+      language: 'Java',
+      description: 'Sliding window approach with character frequency tracking'
     },
     {
       id: 4,
-      title: 'Responsive Layout for Homepage',
+      title: 'Regular Expression Matching',
       submittedBy: 'David Oshodi',
-      submittedDate: '2024-11-12',
-      status: 'Completed',
-      type: 'Bug Fix',
-      priority: 'Low',
-      description: 'Fix responsive design issues on homepage'
+      submittedDate: '2024-12-12',
+      status: 'Accepted',
+      type: 'Hard',
+      runtime: '32ms',
+      memory: '40.1 MB',
+      language: 'C++',
+      description: 'Dynamic programming solution with pattern matching'
     },
     {
       id: 5,
-      title: 'API Performance Optimization',
-      submittedBy: 'Totok Michael',
-      submittedDate: '2024-11-10',
-      status: 'Rejected',
-      type: 'Enhancement',
-      priority: 'Medium',
-      description: 'Optimize API response times and database queries'
+      title: 'Median of Two Sorted Arrays',
+      submittedBy: 'Charlie Kim',
+      submittedDate: '2024-12-10',
+      status: 'Runtime Error',
+      type: 'Hard',
+      runtime: '102ms',
+      memory: '51.4 MB',
+      language: 'Python3',
+      description: 'Binary search approach for O(log(m+n)) complexity'
     }
   ])
 
@@ -91,13 +101,13 @@ const Submissions = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Submissions</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Review and manage project submissions.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Problem Submissions</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Track your LeetCode problem solutions and performance.</p>
         </div>
         <div className="flex space-x-3">
           <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2">
             <span>+</span>
-            <span>New Submission</span>
+            <span>Submit Solution</span>
           </button>
           <button className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium">
             Export
@@ -109,38 +119,38 @@ const Submissions = () => {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total</h3>
-            <span className="text-2xl">📝</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Submissions</h3>
+            <span className="text-2xl">📊</span>
           </div>
           <div className="text-2xl font-bold text-gray-900 dark:text-white">{submissions.length}</div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Approved</h3>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Accepted</h3>
             <span className="text-2xl">✅</span>
           </div>
-          <div className="text-2xl font-bold text-green-600">{submissions.filter(s => s.status === 'Approved').length}</div>
+          <div className="text-2xl font-bold text-green-600">{submissions.filter(s => s.status === 'Accepted').length}</div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Under Review</h3>
-            <span className="text-2xl">⏳</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Wrong Answers</h3>
+            <span className="text-2xl">❌</span>
           </div>
-          <div className="text-2xl font-bold text-yellow-600">{submissions.filter(s => s.status === 'Under Review').length}</div>
+          <div className="text-2xl font-bold text-yellow-600">{submissions.filter(s => s.status === 'Wrong Answer').length}</div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</h3>
-            <span className="text-2xl">🔄</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Runtime Errors</h3>
+            <span className="text-2xl">⚠️</span>
           </div>
-          <div className="text-2xl font-bold text-purple-600">{submissions.filter(s => s.status === 'In Progress').length}</div>
+          <div className="text-2xl font-bold text-purple-600">{submissions.filter(s => s.status === 'Runtime Error').length}</div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</h3>
-            <span className="text-2xl">🎉</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Time Limit Exceeded</h3>
+            <span className="text-2xl">⏱️</span>
           </div>
-          <div className="text-2xl font-bold text-blue-600">{submissions.filter(s => s.status === 'Completed').length}</div>
+          <div className="text-2xl font-bold text-blue-600">{submissions.filter(s => s.status === 'Time Limit Exceeded').length}</div>
         </div>
       </div>
 
@@ -149,7 +159,7 @@ const Submissions = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <input
             type="text"
-            placeholder="Search submissions..."
+            placeholder="Search problems..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
@@ -160,11 +170,10 @@ const Submissions = () => {
             className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
           >
             <option value="All">All Status</option>
-            <option value="Approved">Approved</option>
-            <option value="Under Review">Under Review</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-            <option value="Rejected">Rejected</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Wrong Answer">Wrong Answer</option>
+            <option value="Runtime Error">Runtime Error</option>
+            <option value="Time Limit Exceeded">Time Limit Exceeded</option>
           </select>
           <select
             value={filterType}
@@ -172,9 +181,9 @@ const Submissions = () => {
             className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
           >
             <option value="All">All Types</option>
-            <option value="Feature">Feature</option>
-            <option value="Enhancement">Enhancement</option>
-            <option value="Bug Fix">Bug Fix</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
           </select>
         </div>
       </div>
@@ -203,21 +212,33 @@ const Submissions = () => {
                     <span>{new Date(submission.submittedDate).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <span>🏷️</span>
-                    <span>{submission.type}</span>
+                    <span>⚙️</span>
+                    <span>{submission.runtime}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <span>⚡</span>
-                    <span className={getPriorityColor(submission.priority)}>{submission.priority}</span>
+                    <span>💾</span>
+                    <span>{submission.memory}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <span>💻</span>
+                    <span>{submission.language}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <span>📊</span>
+                    <span className={`font-medium ${
+                      submission.type === 'Easy' ? 'text-green-600' :
+                      submission.type === 'Medium' ? 'text-yellow-600' :
+                      'text-red-600'
+                    }`}>{submission.type}</span>
                   </div>
                 </div>
               </div>
               <div className="flex space-x-2 ml-4">
                 <button className="px-3 py-1 text-sm font-medium text-green-600 hover:text-green-700 border border-green-300 rounded-lg hover:bg-green-50">
-                  Review
+                  View Solution
                 </button>
-                <button className="px-3 py-1 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
-                  Edit
+                <button className="px-3 py-1 text-sm font-medium text-blue-600 hover:text-blue-700 border border-blue-300 rounded-lg hover:bg-blue-50">
+                  Try Again
                 </button>
               </div>
             </div>
