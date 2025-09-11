@@ -1,68 +1,28 @@
-import { useState } from 'react'
-import { users as staticUsers } from '../data/users'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Submissions = () => {
-  const problemTitles = [
-    'Two Sum',
-    'Add Two Numbers',
-    'Longest Substring Without Repeating Characters',
-    'Regular Expression Matching',
-    'Median of Two Sorted Arrays',
-    'Valid Parentheses',
-    'Merge Two Sorted Lists',
-    'Generate Parentheses',
-    'Merge k Sorted Lists',
-    'Trapping Rain Water'
-  ]
-  
-  const problemTypes = ['Easy', 'Medium', 'Hard']
-  const statuses = ['Accepted', 'Wrong Answer', 'Runtime Error', 'Time Limit Exceeded']
-  const languages = ['Python3', 'JavaScript', 'Java', 'C++', 'TypeScript', 'Go']
-  const descriptions = [
-    'Used hash map to find complement in O(n) time complexity',
-    'Linked list manipulation with carry handling',
-    'Sliding window approach with character frequency tracking',
-    'Dynamic programming solution with pattern matching',
-    'Binary search approach for O(log(m+n)) complexity',
-    'Stack-based solution to track opening and closing brackets',
-    'Two-pointer approach for efficient merging',
-    'Recursive backtracking with proper constraints',
-    'Priority queue implementation for optimal merging',
-    'Two-pass solution with left and right max heights'
-  ]
-  
-  // Generate submissions from static users
-  const [submissions] = useState(() => {
-    return staticUsers.map((user, index) => {
-      const problemIndex = index % problemTitles.length
-      const typeIndex = Math.floor(Math.random() * 3)
-      const statusIndex = Math.floor(Math.random() * 4)
-      const languageIndex = Math.floor(Math.random() * languages.length)
-      
-      // Generate random date in 2024
-      const month = Math.floor(Math.random() * 9) + 1
-      const day = Math.floor(Math.random() * 28) + 1
-      const submittedDate = `2024-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
-      
-      // Generate random runtime and memory
-      const runtime = `${Math.floor(Math.random() * 200) + 20}ms`
-      const memory = `${(Math.random() * 20 + 30).toFixed(1)} MB`
-      
-      return {
-        id: index + 1,
-        title: problemTitles[problemIndex],
-        submittedBy: user.name,
-        username: user.username,
-        submittedDate,
-        status: statuses[statusIndex],
-        type: problemTypes[typeIndex],
-        runtime,
-        memory,
-        language: languages[languageIndex],
-        description: descriptions[index % descriptions.length]
+  const [submissions, setSubmissions] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  // Fetch submissions from API
+  useEffect(() => {
+    const fetchSubmissions = async () => {
+      try {
+        setLoading(true)
+        const response = await axios.get('http://localhost:3000/submission')
+        setSubmissions(response.data.data)
+      } catch (err) {
+        setError(err.response?.data?.message || err.message || 'Failed to fetch submissions')
+        console.error('Error fetching submissions:', err)
+      } finally {
+        setLoading(false)
       }
-    })
-  })
+    }
+
+    fetchSubmissions()
+  }, [])
 
   const [filterStatus, setFilterStatus] = useState('All')
   const [filterType, setFilterType] = useState('All')
@@ -70,31 +30,13 @@ const Submissions = () => {
 
   const filteredSubmissions = submissions.filter(submission => {
     const matchesSearch = submission.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         submission.submittedBy.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = filterStatus === 'All' || submission.status === filterStatus
-    const matchesType = filterType === 'All' || submission.type === filterType
+                         submission.userName.toLowerCase().includes(searchTerm.toLowerCase())
+    // For now, we'll assume all submissions are "Accepted" since the API doesn't provide status
+    const matchesStatus = filterStatus === 'All' || filterStatus === 'Accepted'
+    const matchesType = filterType === 'All' || submission.difficulty === filterType
     return matchesSearch && matchesStatus && matchesType
   })
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'Approved': return 'bg-green-100 text-green-800'
-      case 'Completed': return 'bg-blue-100 text-blue-800'
-      case 'Under Review': return 'bg-yellow-100 text-yellow-800'
-      case 'In Progress': return 'bg-purple-100 text-purple-800'
-      case 'Rejected': return 'bg-red-100 text-red-800'
-      default: return 'bg-gray-100 text-gray-800'
-    }
-  }
-
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case 'High': return 'text-red-600'
-      case 'Medium': return 'text-yellow-600'
-      case 'Low': return 'text-green-600'
-      default: return 'text-gray-600'
-    }
-  }
 
   return (
     <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
@@ -107,7 +49,7 @@ const Submissions = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Submissions</h3>
@@ -117,31 +59,24 @@ const Submissions = () => {
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Accepted</h3>
-            <span className="text-2xl">✅</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Easy Problems</h3>
+            <span className="text-2xl">🟢</span>
           </div>
-          <div className="text-2xl font-bold text-green-600">{submissions.filter(s => s.status === 'Accepted').length}</div>
+          <div className="text-2xl font-bold text-green-600">{submissions.filter(s => s.difficulty === 'Easy').length}</div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Wrong Answers</h3>
-            <span className="text-2xl">❌</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Medium Problems</h3>
+            <span className="text-2xl">🟡</span>
           </div>
-          <div className="text-2xl font-bold text-yellow-600">{submissions.filter(s => s.status === 'Wrong Answer').length}</div>
+          <div className="text-2xl font-bold text-yellow-600">{submissions.filter(s => s.difficulty === 'Medium').length}</div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Runtime Errors</h3>
-            <span className="text-2xl">⚠️</span>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Hard Problems</h3>
+            <span className="text-2xl">🔴</span>
           </div>
-          <div className="text-2xl font-bold text-purple-600">{submissions.filter(s => s.status === 'Runtime Error').length}</div>
-        </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Time Limit Exceeded</h3>
-            <span className="text-2xl">⏱️</span>
-          </div>
-          <div className="text-2xl font-bold text-blue-600">{submissions.filter(s => s.status === 'Time Limit Exceeded').length}</div>
+          <div className="text-2xl font-bold text-red-600">{submissions.filter(s => s.difficulty === 'Hard').length}</div>
         </div>
       </div>
 
@@ -162,9 +97,6 @@ const Submissions = () => {
           >
             <option value="All">All Status</option>
             <option value="Accepted">Accepted</option>
-            <option value="Wrong Answer">Wrong Answer</option>
-            <option value="Runtime Error">Runtime Error</option>
-            <option value="Time Limit Exceeded">Time Limit Exceeded</option>
           </select>
           <select
             value={filterType}
@@ -179,55 +111,101 @@ const Submissions = () => {
         </div>
       </div>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="flex items-center justify-center p-8">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+          <span className="ml-3 text-gray-600 dark:text-gray-400">Loading submissions...</span>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-6">
+          <div className="flex items-center">
+            <span className="text-2xl mr-3">⚠️</span>
+            <div>
+              <h3 className="text-lg font-semibold text-red-800 dark:text-red-200">Error Loading Submissions</h3>
+              <p className="text-red-600 dark:text-red-300 mt-1">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Submissions List */}
-      <div className="space-y-4">
-        {filteredSubmissions.map((submission) => (
-          <div key={submission.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center space-x-3 mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{submission.title}</h3>
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(submission.status)}`}>
-                    {submission.status}
-                  </span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">#{submission.id}</span>
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-3">{submission.description}</p>
-                <div className="flex items-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
-                  <div className="flex items-center space-x-1">
-                    <span>👤</span>
-                    <span>{submission.submittedBy} (@{submission.username})</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <span>📅</span>
-                    <span>{new Date(submission.submittedDate).toLocaleDateString()}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <span>⚙️</span>
-                    <span>{submission.runtime}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <span>💾</span>
-                    <span>{submission.memory}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <span>💻</span>
-                    <span>{submission.language}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <span>📊</span>
-                    <span className={`font-medium ${
-                      submission.type === 'Easy' ? 'text-green-600' :
-                      submission.type === 'Medium' ? 'text-yellow-600' :
-                      'text-red-600'
-                    }`}>{submission.type}</span>
+      {!loading && !error && (
+        <div className="space-y-4">
+          {filteredSubmissions.length === 0 ? (
+            <div className="text-center p-8 text-gray-500 dark:text-gray-400">
+              <span className="text-4xl mb-4 block">📝</span>
+              <h3 className="text-lg font-medium mb-2">No submissions found</h3>
+              <p>Try adjusting your search or filter criteria.</p>
+            </div>
+          ) : (
+            filteredSubmissions.map((submission) => (
+              <div key={submission._id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <a 
+                        href={`https://leetcode.com/problems/${submission.titleSlug}/submissions/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg font-semibold text-gray-900 dark:text-white hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 flex items-center space-x-2"
+                      >
+                        <span>{submission.title}</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                      <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                        Accepted
+                      </span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">#{submission._id.slice(-8)}</span>
+                    </div>
+                    
+                    {/* Topic Tags */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {submission.topicTags.map((tag, index) => (
+                        <span key={index} className="inline-flex px-2 py-1 text-xs font-medium rounded-md bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    <div className="flex items-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center space-x-1">
+                        <span>👤</span>
+                        <span>{submission.userName}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <span>🏆</span>
+                        <span>{submission.seasonName}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <span>📅</span>
+                        <span>{new Date(submission.submittedAt).toLocaleDateString()}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <span>💻</span>
+                        <span className="capitalize">{submission.language}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <span>📊</span>
+                        <span className={`font-medium ${
+                          submission.difficulty === 'Easy' ? 'text-green-600' :
+                          submission.difficulty === 'Medium' ? 'text-yellow-600' :
+                          'text-red-600'
+                        }`}>{submission.difficulty}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            ))
+          )}
+        </div>
+      )}
     </div>
   )
 }
