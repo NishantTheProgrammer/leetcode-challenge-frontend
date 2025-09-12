@@ -1,18 +1,43 @@
 import { Outlet } from 'react-router-dom'
 import ThemeToggle from './ThemeToggle'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import { users } from '../data/users'
+import { useSeason } from '../contexts/SeasonContext.jsx'
 
 const MainLayout = () => {
-  const [selectedSeason, setSelectedSeason] = useState('1')
+  const { selectedSeasonId, setSelectedSeasonId } = useSeason()
+  const [seasons, setSeasons] = useState([])
+  const [loadingSeasons, setLoadingSeasons] = useState(true)
+  const [seasonsError, setSeasonsError] = useState(null)
   const totalUsers = users.length
 
-  const seasons = [
-    { id: '1', name: 'Season 1', date: 'Jan 2024 - Mar 2024' },
-    { id: '2', name: 'Season 2', date: 'Apr 2024 - Jun 2024' },
-    { id: '3', name: 'Season 3', date: 'Jul 2024 - Sep 2024' },
-    { id: '4', name: 'Season 4', date: 'Oct 2024 - Dec 2024' },
-  ]
+  useEffect(() => {
+    const fetchSeasons = async () => {
+      try {
+        setLoadingSeasons(true)
+        const res = await axios.get('http://localhost:3000/season')
+        const apiSeasons = Array.isArray(res.data?.data) ? res.data.data : []
+        setSeasons(apiSeasons)
+        if (apiSeasons.length > 0) {
+          setSelectedSeasonId(apiSeasons[0]._id)
+        }
+      } catch (err) {
+        setSeasonsError(err.response?.data?.message || err.message || 'Failed to load seasons')
+      } finally {
+        setLoadingSeasons(false)
+      }
+    }
+    fetchSeasons()
+  }, [setSelectedSeasonId])
+
+  const formatSeasonLabel = (s) => {
+    const start = new Date(s.startDate)
+    const end = new Date(s.endDate)
+    const startStr = start.toLocaleDateString(undefined, { month: 'short', year: 'numeric' })
+    const endStr = end.toLocaleDateString(undefined, { month: 'short', year: 'numeric' })
+    return `${s.name} (${startStr} - ${endStr})`
+  }
   return (
     <div className="flex-1 bg-gray-50 dark:bg-gray-900">
       {/* Top Navigation */}
@@ -22,13 +47,15 @@ const MainLayout = () => {
           <div className="flex items-center space-x-4">
             <label className="text-gray-700 dark:text-gray-300 font-medium">Select Season:</label>
             <select 
-              value={selectedSeason}
-              onChange={(e) => setSelectedSeason(e.target.value)}
+              value={selectedSeasonId}
+              onChange={(e) => setSelectedSeasonId(e.target.value)}
               className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
             >
-              {seasons.map(season => (
-                <option key={season.id} value={season.id}>
-                  {season.name} ({season.date})
+              {loadingSeasons && <option>Loading...</option>}
+              {seasonsError && <option disabled>Error loading seasons</option>}
+              {!loadingSeasons && !seasonsError && seasons.map(season => (
+                <option key={season._id} value={season._id}>
+                  {formatSeasonLabel(season)}
                 </option>
               ))}
             </select>
