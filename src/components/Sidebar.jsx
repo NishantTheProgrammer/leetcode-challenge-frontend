@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import logo from '../assets/logo.png'
 
 const Sidebar = () => {
   const location = useLocation()
@@ -16,12 +17,7 @@ const Sidebar = () => {
     <div className={`bg-white dark:bg-gray-800 shadow-sm transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} border-r border-gray-100 dark:border-gray-700 relative`}>
       {/* Header */}
       <div className="p-6">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-sm">✓</span>
-          </div>
-          {!isCollapsed && <span className="font-bold text-xl text-gray-900 dark:text-white">Donezo</span>}
-        </div>
+        <img src={logo} alt="LeetCode Challenge" className="w-full h-auto rounded-lg" />
       </div>
 
       {/* Menu Section */}

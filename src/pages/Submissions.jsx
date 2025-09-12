@@ -148,7 +148,7 @@ const Submissions = () => {
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
                       <a 
-                        href={`https://leetcode.com/problems/${submission.titleSlug}/submissions/`}
+                        href={`https://leetcode.com/problems/${submission.titleSlug}/submissions/${submission.leetcodeSubmissionId}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-lg font-semibold text-gray-900 dark:text-white hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 flex items-center space-x-2"
@@ -161,7 +161,7 @@ const Submissions = () => {
                       <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                         Accepted
                       </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">#{submission._id.slice(-8)}</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">#{submission.leetcodeSubmissionId}</span>
                     </div>
                     
                     {/* Topic Tags */}
