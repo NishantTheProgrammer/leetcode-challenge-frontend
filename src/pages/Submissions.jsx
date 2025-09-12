@@ -29,8 +29,8 @@ const Submissions = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredSubmissions = submissions.filter(submission => {
-    const matchesSearch = submission.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         submission.userName.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSearch = submission.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         submission.userName?.toLowerCase().includes(searchTerm.toLowerCase())
     // For now, we'll assume all submissions are "Accepted" since the API doesn't provide status
     const matchesStatus = filterStatus === 'All' || filterStatus === 'Accepted'
     const matchesType = filterType === 'All' || submission.difficulty === filterType

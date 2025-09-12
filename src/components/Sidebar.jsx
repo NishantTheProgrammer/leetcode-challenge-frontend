@@ -13,7 +13,7 @@ const Sidebar = () => {
   ]
 
   return (
-    <div className={`bg-white dark:bg-gray-800 h-screen shadow-sm transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} border-r border-gray-100 dark:border-gray-700 relative`}>
+    <div className={`bg-white dark:bg-gray-800 shadow-sm transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} border-r border-gray-100 dark:border-gray-700 relative`}>
       {/* Header */}
       <div className="p-6">
         <div className="flex items-center space-x-3">
